@@ -89,7 +89,15 @@ while True:
     cv2.imshow("Smart Rope Fitness Tracker PRO", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+
+        # ✅ SAVE LAST SESSION ON EXIT
+        if workout_active:
+            duration = timer.get_time()
+            calories = 0.0175 * 12 * user_weight * (duration / 60)
+
+            save_session(jump_count, duration, calories)
+
+            break
 
 cap.release()
 cv2.destroyAllWindows()
